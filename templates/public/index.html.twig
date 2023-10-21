@@ -1,20 +1,355 @@
-{% extends 'base.html.twig' %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="author" content="Untree.co">
+    <link rel="shortcut icon" href="{{ asset('favicon.png') }}">
 
-{% block title %}Hello PublicController!{% endblock %}
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
 
-{% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    <link href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600, 700,900|Oswald:400,700" rel="stylesheet">
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/app/src/Controller/PublicController.php'|file_link(0) }}">src/Controller/PublicController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/app/templates/public/index.html.twig'|file_link(0) }}">templates/public/index.html.twig</a></code></li>
-    </ul>
-</div>
-{% endblock %}
+
+    <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/magnific-popup.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/jquery-ui.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/owl.carousel.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('fonts/flaticon/font/flaticon.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/aos.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/fancybox.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+
+    <title>Snap</title>
+
+
+</head>
+<body data-spy="scroll" data-target=".site-navbar-target" data-offset="200">
+
+
+<div class="site-wrap">
+
+    <div class="site-mobile-menu site-navbar-target">
+        <div class="site-mobile-menu-header">
+            <div class="site-mobile-menu-close mt-3">
+                <span class="icon-close2 js-menu-toggle"></span>
+            </div>
+        </div>
+        <div class="site-mobile-menu-body"></div>
+    </div>
+
+    <header class="header-bar d-flex d-lg-block align-items-center site-navbar-target" data-aos="fade-right">
+        <div class="site-logo">
+            <a href="index.html.twig">Snap</a>
+        </div>
+
+        <div class="d-inline-block d-lg-none ml-md-0 ml-auto py-3" style="position: relative; top: 3px;">
+            <a href="#" class="site-menu-toggle js-menu-toggle "><span class="icon-menu h3"></span></a>
+        </div>
+
+        <div class="main-menu">
+            <ul class="js-clone-nav">
+                <li><a href="#section-home" class="nav-link">Home</a></li>
+                <li><a href="#section-photos" class="nav-link">Photos</a></li>
+                <li><a href="#section-contact" class="nav-link">Contact</a></li>
+                {% if app.user %}
+                    <li><a href="{{ path('app_logout') }}" class="nav-link">Déconnecter</a></li>
+                {% else %}
+                    <li><a href="{{ path('app_register') }}" class="nav-link">S'incrire</a></li>
+                    <li><a href="{{ path('app_login') }}" class="nav-link">Se connecter</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </header>
+
+    <main class="main-content">
+
+        <section class="site-section-hero bg-image mb-5" style="background-image: url({{ asset('images/hero-min.jpg') }});"  data-stellar-background-ratio="0.5" id="section-home">
+            <div class="row justify-content-center align-items-center">
+                <div class="col-md-7 text-center">
+                    <h1 class=" heading text-uppercase text-white" data-aos="fade-up">Snap</h1>
+                    <p class="lead text-white mb-4" data-aos="fade-up" data-aos-delay="100">A Free Onepage Bootstrap Template by <a href="https://untree.co/">Untree.co</a>. Under licensed <a href="https://untree.co/license/"
+                                                                                                                                                                                               target="_blank">Creative Common Attribution 3.0</a></p>
+                    <p data-aos="fade-up" data-aos-delay="100"><a href="#section-contact" class="btn btn-primary btn-md smoothscroll">Available for hire</a></p>
+                </div>
+            </div>
+        </section>
+
+        <div class="container-fluid site-section">
+
+
+            <div class="row mb-3">
+                <div class="col-12 text-center">
+                    <h2 class="heading">Photos</h2>
+                </div>
+            </div>
+
+            <section class="row align-items-stretch photos" id="section-photos">
+                <div class="col-12">
+                    <div class="row align-items-stretch">
+
+                        <div class="col-6 col-md-6 col-lg-4" data-aos="fade-up">
+                            <a href="{{ asset('images/img_4.jpg') }}" class="d-block photo-item" data-fancybox="gallery">
+                                <img src="{{ asset('images/img_4.jpg')}}" alt="Image" class="img-fluid mb-0">
+                                <div class="photo-text-more">
+                                    <span class="icon icon-eye"></span>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-6 col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
+                            <a href="images/img_5.jpg" class="d-block photo-item" data-fancybox="gallery">
+                                <img src="images/img_5.jpg" alt="Image" class="img-fluid mb-0">
+                                <div class="photo-text-more">
+                                    <span class="icon icon-eye"></span>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-6 col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="200">
+                            <a href="images/img_1.jpg" class="d-block photo-item" data-fancybox="gallery">
+                                <img src="images/img_1.jpg" alt="Image" class="img-fluid mb-0">
+                                <div class="photo-text-more">
+                                    <span class="icon icon-eye"></span>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="col-6 col-md-6 col-lg-4" data-aos="fade-up">
+                            <a href="images/img_2.jpg" class="d-block photo-item" data-fancybox="gallery">
+                                <img src="images/img_2.jpg" alt="Image" class="img-fluid mb-0">
+                                <div class="photo-text-more">
+                                    <span class="icon icon-eye"></span>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-6 col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
+                            <a href="images/img_3.jpg" class="d-block photo-item" data-fancybox="gallery">
+                                <img src="images/img_3.jpg" alt="Image" class="img-fluid mb-0">
+                                <div class="photo-text-more">
+                                    <span class="icon icon-eye"></span>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-6 col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="200">
+                            <a href="images/img_6.jpg" class="d-block photo-item" data-fancybox="gallery">
+                                <img src="images/img_6.jpg" alt="Image" class="img-fluid mb-0">
+                                <div class="photo-text-more">
+                                    <span class="icon icon-eye"></span>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="col-6 col-md-6 col-lg-4" data-aos="fade-up">
+                            <a href="images/img_7.jpg" class="d-block photo-item" data-fancybox="gallery">
+                                <img src="images/img_7.jpg" alt="Image" class="img-fluid mb-0">
+                                <div class="photo-text-more">
+                                    <span class="icon icon-eye"></span>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-6 col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
+                            <a href="images/img_8.jpg" class="d-block photo-item" data-fancybox="gallery">
+                                <img src="images/img_8.jpg" alt="Image" class="img-fluid mb-0">
+                                <div class="photo-text-more">
+                                    <span class="icon icon-eye"></span>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-6 col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="200">
+                            <a href="images/img_9.jpg" class="d-block photo-item" data-fancybox="gallery">
+                                <img src="images/img_9.jpg" alt="Image" class="img-fluid mb-0">
+                                <div class="photo-text-more">
+                                    <span class="icon icon-eye"></span>
+                                </div>
+                            </a>
+                        </div>
+
+
+                        <div class="col-6 col-md-6 col-lg-4" data-aos="fade-up">
+                            <a href="images/img_10.jpg" class="d-block photo-item" data-fancybox="gallery">
+                                <img src="images/img_10.jpg" alt="Image" class="img-fluid mb-0">
+                                <div class="photo-text-more">
+                                    <span class="icon icon-eye"></span>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-6 col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
+                            <a href="images/img_1.jpg" class="d-block photo-item" data-fancybox="gallery">
+                                <img src="images/img_1.jpg" alt="Image" class="img-fluid mb-0">
+                                <div class="photo-text-more">
+                                    <span class="icon icon-eye"></span>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-6 col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="200">
+                            <a href="images/img_2.jpg" class="d-block photo-item" data-fancybox="gallery">
+                                <img src="images/img_2.jpg" alt="Image" class="img-fluid mb-0">
+                                <div class="photo-text-more">
+                                    <span class="icon icon-eye"></span>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="col-6 col-md-6 col-lg-4" data-aos="fade-up">
+                            <a href="images/img_3.jpg" class="d-block photo-item" data-fancybox="gallery">
+                                <img src="images/img_3.jpg" alt="Image" class="img-fluid mb-0">
+                                <div class="photo-text-more">
+                                    <span class="icon icon-eye"></span>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-6 col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
+                            <a href="images/img_4.jpg" class="d-block photo-item" data-fancybox="gallery">
+                                <img src="images/img_4.jpg" alt="Image" class="img-fluid mb-0">
+                                <div class="photo-text-more">
+                                    <span class="icon icon-eye"></span>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-6 col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="200">
+                            <a href="images/img_5.jpg" class="d-block photo-item" data-fancybox="gallery">
+                                <img src="images/img_5.jpg" alt="Image" class="img-fluid mb-0">
+                                <div class="photo-text-more">
+                                    <span class="icon icon-eye"></span>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="col-6 col-md-6 col-lg-4" data-aos="fade-up">
+                            <a href="images/img_6.jpg" class="d-block photo-item" data-fancybox="gallery">
+                                <img src="images/img_6.jpg" alt="Image" class="img-fluid mb-0">
+                                <div class="photo-text-more">
+                                    <span class="icon icon-eye"></span>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-6 col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
+                            <a href="images/img_7.jpg" class="d-block photo-item" data-fancybox="gallery">
+                                <img src="images/img_7.jpg" alt="Image" class="img-fluid mb-0">
+                                <div class="photo-text-more">
+                                    <span class="icon icon-eye"></span>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-6 col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="200">
+                            <a href="images/img_8.jpg" class="d-block photo-item" data-fancybox="gallery">
+                                <img src="images/img_8.jpg" alt="Image" class="img-fluid mb-0">
+                                <div class="photo-text-more">
+                                    <span class="icon icon-eye"></span>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="col-6 col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
+                            <a href="images/img_9.jpg" class="d-block photo-item" data-fancybox="gallery">
+                                <img src="images/img_9.jpg" alt="Image" class="img-fluid mb-0">
+                                <div class="photo-text-more">
+                                    <span class="icon icon-eye"></span>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-6 col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
+                            <a href="images/img_4.jpg" class="d-block photo-item" data-fancybox="gallery">
+                                <img src="images/img_4.jpg" alt="Image" class="img-fluid mb-0">
+                                <div class="photo-text-more">
+                                    <span class="icon icon-eye"></span>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-6 col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="200">
+                            <a href="images/img_5.jpg" class="d-block photo-item" data-fancybox="gallery">
+                                <img src="images/img_5.jpg" alt="Image" class="img-fluid mb-0">
+                                <div class="photo-text-more">
+                                    <span class="icon icon-eye"></span>
+                                </div>
+                            </a>
+                        </div>
+
+
+
+                    </div>
+
+                </div>
+            </section> <!-- #section-photos -->
+
+
+            <section class="site-section" id="section-contact">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-md-8">
+                            <h2 class=" mb-5 heading">Contact</h2>
+
+                            <form action="#">
+
+
+
+                                <div class="row form-group">
+                                    <div class="col-md-6 mb-3 mb-md-0">
+                                        <label class="" for="fname">First Name</label>
+                                        <input type="text" id="fname" class="form-control">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="" for="lname">Last Name</label>
+                                        <input type="text" id="lname" class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="row form-group">
+
+                                    <div class="col-md-12">
+                                        <label class="" for="email">Email</label>
+                                        <input type="email" id="email" class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="row form-group">
+
+                                    <div class="col-md-12">
+                                        <label class="" for="subject">Subject</label>
+                                        <input type="submit" id="subject" class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="row form-group mb-5">
+                                    <div class="col-md-12">
+                                        <label class="" for="message">Message</label>
+                                        <textarea name="message" id="message" cols="30" rows="7" class="form-control"></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="row form-group">
+                                    <div class="col-md-12">
+                                        <input type="submit" value="Send Message" class="btn btn-primary btn-md">
+                                    </div>
+                                </div>
+
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+</div> <!-- .site-wrap -->
+
+<script src="{{ asset('js/jquery-3.3.1.min.js') }}"></script>
+<script src="{{ asset('js/jquery-migrate-3.0.1.min.js') }}"></script>
+<script src="{{ asset('js/jquery.easing.1.3.js') }}"></script>
+<script src="{{ asset('js/jquery-ui.js') }}"></script>
+<script src="{{ asset('js/popper.min.js') }}"></script>
+<script src="{{ asset('js/bootstrap.min.js') }}"></script>
+<script src="{{ asset('js/owl.carousel.min.js') }}"></script>
+<script src="{{ asset('js/jquery.stellar.min.js') }}"></script>
+<script src="{{ asset('js/jquery.countdown.min.js') }}"></script>
+<script src="{{ asset('js/jquery.magnific-popup.min.js') }}"></script>
+<script src="{{ asset('js/aos.js') }}"></script>
+<script src="{{ asset('js/lozad.min.js') }}"></script>
+<script src="{{ asset('js/jquery.fancybox.min.js') }}"></script>
+<script src="{{ asset('js/main.js') }}"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+</body>
+</html>
