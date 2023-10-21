@@ -1,16 +1,33 @@
-<section class="row align-items-stretch photos" id="section-photos">
-    <div class="col-12">
-        <div class="row align-items-stretch">
-            {% for image in images %}
-                <div class="col-6 col-md-6 col-lg-4" data-aos="fade-up">
-                    <a href="{{ asset('uploads/' ~ image.getName()) }}" class="d-block photo-item" data-fancybox="gallery">
-                        <img src="{{ asset('uploads/' ~ image.getName()) }}" alt="Image" class="img-fluid mb-0">
-                        <div class="photo-text-more">
-                            <span class="icon icon-eye"></span>
-                        </div>
-                    </a>
-                </div>
-            {% endfor %}
-        </div>
-    </div>
-</section>
+{% extends 'base.html.twig' %}
+
+{% block title %}Image index{% endblock %}
+
+{% block body %}
+    <h1>Image index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for image in images %}
+            <tr>
+                <td>{{ image.id }}</td>
+                <td>
+                    <a href="{{ path('app_image_show', {'id': image.id}) }}">show</a>
+                    <a href="{{ path('app_image_edit', {'id': image.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="2">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_image_new') }}">Create new</a>
+{% endblock %}
