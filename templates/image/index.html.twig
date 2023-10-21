@@ -1,25 +1,16 @@
-{% extends 'base.html.twig' %}
-
-{% block body %}
-    <div class="container mt-5">
-        <div class="row justify-content-center">
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-header">
-                        <h1 class="text-center">Upload d'une Image</h1>
-                    </div>
-                    <div class="card-body">
-                        {{ form_start(form, {'attr': {'class': 'form'}}) }}
-                        <div class="mb-3">
-                            {{ form_widget(form.imageFile, {'attr': {'class': 'form-control'}}) }}
+<section class="row align-items-stretch photos" id="section-photos">
+    <div class="col-12">
+        <div class="row align-items-stretch">
+            {% for image in images %}
+                <div class="col-6 col-md-6 col-lg-4" data-aos="fade-up">
+                    <a href="{{ asset('uploads/' ~ image.getName()) }}" class="d-block photo-item" data-fancybox="gallery">
+                        <img src="{{ asset('uploads/' ~ image.getName()) }}" alt="Image" class="img-fluid mb-0">
+                        <div class="photo-text-more">
+                            <span class="icon icon-eye"></span>
                         </div>
-                        <div class="text-center">
-                            <button type="submit" class="btn btn-secondary float-end">Télécharger</button>
-                        </div>
-                        {{ form_end(form) }}
-                    </div>
+                    </a>
                 </div>
-            </div>
+            {% endfor %}
         </div>
     </div>
-{% endblock %}
+</section>

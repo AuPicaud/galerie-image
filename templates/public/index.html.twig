@@ -55,11 +55,13 @@
                 <li><a href="#section-photos" class="nav-link">Photos</a></li>
                 <li><a href="#section-contact" class="nav-link">Contact</a></li>
                 {% if app.user %}
-                    <li><a href="{{ path('app_logout') }}" class="nav-link">Déconnecter</a></li>
+                    <li><a href="{{ path('app_logout') }}" class="nav-link">Se Déconnecter</a></li>
+                    <li><a href="{{ path('app_upload') }}" class="nav-link">Upload</a></li>
                 {% else %}
                     <li><a href="{{ path('app_register') }}" class="nav-link">S'incrire</a></li>
                     <li><a href="{{ path('app_login') }}" class="nav-link">Se connecter</a></li>
                 {% endif %}
+
             </ul>
         </div>
     </header>
@@ -307,7 +309,7 @@
 
                                     <div class="col-md-12">
                                         <label class="" for="subject">Subject</label>
-                                        <input type="submit" id="subject" class="form-control">
+                                        <input type="subject" id="subject" class="form-control">
                                     </div>
                                 </div>
 
