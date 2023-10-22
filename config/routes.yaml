@@ -20,6 +20,30 @@ app_register:
     path: /register
     controller: App\Controller\RegistrationController::register    
 
-app_image:
-    path: /image
+app_image_index:
+    path: /image/
     controller: App\Controller\ImageController::image
+ 
+ 
+app_image_new:
+    path: /image/new
+    controller: App\Controller\ImageController::new
+    
+app_image_show:
+    path: /image/{id}
+    controller: App\Controller\ImageController::show
+    requirements:
+        id: \d+
+        
+app_image_edit:
+    path: /image/{id}/edit
+    controller: App\Controller\ImageController::edit
+    requirements:
+        id: \d+
+        
+app_image_delete:
+    path: /image/{id}/delete
+    controller: App\Controller\ImageController::delete
+    requirements:
+        id: \d+
+        
