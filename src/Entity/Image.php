@@ -2,10 +2,9 @@
 
 namespace App\Entity;
 
-use App\Entity\Users;
 use App\Repository\ImageRepository;
 use Doctrine\ORM\Mapping as ORM;
-use Vich\UploaderBundle\Entity\File;
+use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -27,7 +26,7 @@ class Image
     #[Assert\NotBlank()]
     private string $description;
 
-    #[Vich\UploadableField(mapping: "uploads", fileNameProperty: "name")]
+    #[Vich\UploadableField(mapping: "post_image", fileNameProperty: "name")]
     #[Assert\NotNull()]
     private ?File $imageFile;
 
@@ -41,6 +40,7 @@ class Image
     public function __construct()
     {
         $this->dateCreated = new \DateTimeImmutable();
+        $this->name = '';
     }
 
     public function getId(): ?int
@@ -88,12 +88,12 @@ class Image
         return $this;
     }
 
-    public function getDateCreated(): ?\DateTimeInterface
+    public function getDateCreated(): ?\DateTimeImmutable
     {
         return $this->dateCreated;
     }
 
-    public function setDateCreated(\DateTimeInterface $dateCreated): self
+    public function setDateCreated(\DateTimeImmutable $dateCreated): self
     {
         $this->dateCreated = $dateCreated;
 
@@ -111,4 +111,5 @@ class Image
 
         return $this;
     }
+
 }
