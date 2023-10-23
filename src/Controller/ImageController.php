@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/image', name: 'app_image')]
+#[Route('/image')]
 class ImageController extends AbstractController
 {
     #[Route('/', name: 'app_image_index', methods: ['GET'])]
@@ -38,7 +38,7 @@ class ImageController extends AbstractController
 
         return $this->render('image/new.html.twig', [
             'image' => $image,
-            'form' => $form->createView(),
+            'form' => $form,
         ]);
     }
 

@@ -5,7 +5,7 @@ namespace App\Entity;
 use App\Entity\Users;
 use App\Repository\ImageRepository;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Entity\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -35,8 +35,8 @@ class Image
     #[Assert\NotNull()]
     private \DateTimeImmutable $dateCreated;
 
-    #[ORM\ManyToOne(targetEntity: "App\Entity\Users")]
-    private ?\App\Entity\Users $user;
+    #[ORM\ManyToOne(targetEntity: \App\Entity\Users::class, cascade: ['persist', 'remove'])]
+    private Users $user;
 
     public function __construct()
     {

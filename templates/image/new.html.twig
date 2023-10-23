@@ -1,19 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Télécharger une nouvelle image{% endblock %}
+{% block title %}New Image{% endblock %}
 
 {% block body %}
-    <div class="container mt-5">
-        <h1 class="text-center mb-4">Télécharger une nouvelle image</h1>
+    <h1>Create new Image</h1>
 
-        <div class="row justify-content-center">
-            <div class="col-md-6">
-                {{ include('image/_form.html.twig') }}
+    {{ include('image/_form.html.twig') }}
 
-                <div class="mt-3">
-                    <a href="{{ path('app_image_index') }}" class="btn btn-secondary">Retour à la liste des images</a>
-                </div>
-            </div>
-        </div>
-    </div>
+    <a href="{{ path('app_image_index') }}">back to list</a>
 {% endblock %}
