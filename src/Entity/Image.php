@@ -29,7 +29,7 @@ class Image
     #[Assert\NotBlank()]
     private string $description;
 
-    #[Vich\UploadableField(mapping: "post_image", fileNameProperty: "name")]
+    #[Vich\UploadableField(mapping: "post_image", fileNameProperty: "uniqueName")]
     #[Assert\NotNull()]
     private ?File $imageFile;
 
@@ -43,7 +43,7 @@ class Image
     public function __construct()
     {
         $this->dateCreated = new \DateTimeImmutable();
-        $this->name = '';
+        $this->title = '';
     }
 
     public function getId(): ?int
@@ -53,12 +53,12 @@ class Image
 
     public function getTitle(): ?string
     {
-        return $this->name;
+        return $this->title;
     }
 
-    public function setTitle(?string $name): self
+    public function setTitle(?string $title): self
     {
-        $this->name = $name;
+        $this->title = $title;
 
         return $this;
     }
