@@ -1,39 +1,35 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Image index{% endblock %}
+{% block title %}Liste des Images{% endblock %}
 
 {% block body %}
-    <h1>Image index</h1>
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Liste des Images</h1>
 
-    <table class="table">
-        <thead>
+        <table class="table table-bordered">
+            <thead>
             <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Description</th>
-                <th>DateCreated</th>
-                <th>actions</th>
+                <th scope="col">Id</th>
+                <th scope="col">Actions</th>
             </tr>
-        </thead>
-        <tbody>
-        {% for image in images %}
-            <tr>
-                <td>{{ image.id }}</td>
-                <td>{{ image.name }}</td>
-                <td>{{ image.description }}</td>
-                <td>{{ image.dateCreated ? image.dateCreated|date('Y-m-d H:i:s') : '' }}</td>
-                <td>
-                    <a href="{{ path('app_image_show', {'id': image.id}) }}">show</a>
-                    <a href="{{ path('app_image_edit', {'id': image.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="5">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+            {% for image in images %}
+                <tr>
+                    <td>{{ image.id }}</td>
+                    <td>
+                        <a href="{{ path('app_image_show', {'id': image.id}) }}" class="btn btn-info btn-sm">Voir</a>
+                        <a href="{{ path('app_image_edit', {'id': image.id}) }}" class="btn btn-warning btn-sm">Modifier</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="2" class="text-center">Aucun enregistrement trouvé</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
 
-    <a href="{{ path('app_image_new') }}">Create new</a>
+        <a href="{{ path('app_image_new') }}" class="btn btn-primary mt-3">Créer un nouvel enregistrement</a>
+    </div>
 {% endblock %}
