@@ -20,7 +20,10 @@ class Image
 
     #[ORM\Column(type: "string", length: 255, nullable: true)]
     #[Assert\NotBlank()]
-    private string $name;
+    private string $title;
+
+    #[ORM\Column(type: "string", length: 255, nullable: true)]
+    private string $uniqueName;
 
     #[ORM\Column(type: "text", nullable: true)]
     #[Assert\NotBlank()]
@@ -48,12 +51,12 @@ class Image
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getTitle(): ?string
     {
         return $this->name;
     }
 
-    public function setName(?string $name): self
+    public function setTitle(?string $name): self
     {
         $this->name = $name;
 
@@ -108,6 +111,18 @@ class Image
     public function setUser(?Users $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getUniqueName(): string
+    {
+        return $this->uniqueName;
+    }
+
+    public function setUniqueName(string $uniqueName): self
+    {
+        $this->uniqueName = $uniqueName;
 
         return $this;
     }
