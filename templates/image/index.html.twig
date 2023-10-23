@@ -3,33 +3,65 @@
 {% block title %}Liste des Images{% endblock %}
 
 {% block body %}
-    <div class="container mt-5">
-        <h1 class="text-center mb-4">Liste des Images</h1>
+    <header class="header-bar d-flex d-lg-block align-items-center site-navbar-target" data-aos="fade-right">
+        <div class="site-logo">
+            <a>ImageScape</a>
+        </div>
 
-        <table class="table table-bordered">
-            <thead>
-            <tr>
-                <th scope="col">Id</th>
-                <th scope="col">Actions</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for image in images %}
-                <tr>
-                    <td>{{ image.id }}</td>
-                    <td>
-                        <a href="{{ path('app_image_show', {'id': image.id}) }}" class="btn btn-info btn-sm">Voir</a>
-                        <a href="{{ path('app_image_edit', {'id': image.id}) }}" class="btn btn-warning btn-sm">Modifier</a>
-                    </td>
-                </tr>
-            {% else %}
-                <tr>
-                    <td colspan="2" class="text-center">Aucun enregistrement trouvé</td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
+        <div class="d-inline-block d-lg-none ml-md-0 ml-auto py-3" style="position: relative; top: 3px;">
+            <a href="#" class="site-menu-toggle js-menu-toggle "><span class="icon-menu h3"></span></a>
+        </div>
 
-        <a href="{{ path('app_image_new') }}" class="btn btn-primary mt-3">Créer un nouvel enregistrement</a>
-    </div>
+        <div class="main-menu">
+            <ul class="js-clone-nav">
+                <li><a href="{{ path('app_public')}}" class="nav-link">Accueil</a></li>
+                <li><a href="{{ path('app_image_index') }}" class="nav-link">Télécharger</a></li>
+                <li><a href="{{ path('app_image_new') }}" class="nav-link">Nouvelle enregistrement</a></li>
+                <li><a href="{{ path('app_logout') }}" class="nav-link">Se Déconnecter</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="container-fluid site-section">
+            <div class="row mb-3">
+                <div class="col-12 text-center">
+                    <h2 class="heading">Liste des Images</h2>
+                </div>
+            </div>
+
+            <section class="row align-items-stretch photos">
+                <div class="col-12">
+                    <div class="row align-items-stretch">
+                        <table class="table table-bordered">
+                            <thead>
+                            <tr>
+                                <th scope="col">Actions</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for image in images %}
+                                <tr>
+                                    <td>
+                                        <a href="{{ path('app_image_show', {'id': image.id}) }}" class="btn btn-info btn-sm">Voir</a>
+                                        <a href="{{ path('app_image_edit', {'id': image.id}) }}" class="btn btn-warning btn-sm">Modifier</a>
+                                    </td>
+                                </tr>
+                            {% else %}
+                                <tr>
+                                    <td colspan="2" class="text-center">Aucun enregistrement trouvé</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <div class="pagination">
+                {{ knp_pagination_render(images) }}
+            </div>
+
+        </div>
+    </main>
 {% endblock %}

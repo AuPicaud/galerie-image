@@ -10,14 +10,14 @@
             <tbody>
             <tr>
                 <th scope="row">Image</th>
-                <td><img src="{{ asset('images/posts' ~ image.getName()) }}" alt="Image"></td>
+                <td><img src="{{ asset('images/posts/' ~ image.uniqueName) }}" alt="Image"></td>
             </tr>
             <tr>
-                <th scope="row">Nom de l'image</th>
-                <td>{{ image.name }}</td>
+                <th scope="row">Titre</th>
+                <td>{{ image.title }}</td>
             </tr>
             <tr>
-                <th scope="row">Description de l'image</th>
+                <th scope="row">Description</th>
                 <td>{{ image.description }}</td>
             </tr>
             </tbody>
