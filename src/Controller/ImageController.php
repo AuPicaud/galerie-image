@@ -11,15 +11,26 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Knp\Component\Pager\PaginatorInterface;
 
 #[Route('/image')]
 class ImageController extends AbstractController
 {
     #[Route('/', name: 'app_image_index', methods: ['GET'])]
-    public function index(ImageRepository $imageRepository): Response
+    public function index(Request $request, PaginatorInterface $paginator, ImageRepository $imageRepository): Response
     {
+        $query = $imageRepository->createQueryBuilder('i')
+            ->getQuery();
+
+        $pagination = $paginator->paginate(
+            $query, // La requête paginée
+            $request->query->getInt('page', 1), // Le numéro de la page à afficher
+            5 // Le nombre d'éléments par page
+        );
+
         return $this->render('image/index.html.twig', [
-            'images' => $imageRepository->findAll(),
+            'images' => $pagination,
+
         ]);
     }
 
@@ -81,6 +92,9 @@ class ImageController extends AbstractController
         if ($this->isCsrfTokenValid('delete'.$image->getId(), $request->request->get('_token'))) {
             $entityManager->remove($image);
             $entityManager->flush();
+            $this->addFlash('success', 'L\'image a été supprimée avec succès.');
+        } else {
+            $this->addFlash('error', 'Erreur lors de la suppression de l\'image. Veuillez réessayer.');
         }
 
         return $this->redirectToRoute('app_image_index', [], Response::HTTP_SEE_OTHER);
