@@ -24,7 +24,6 @@ app_image_index:
     path: /image/
     controller: App\Controller\ImageController::image
  
- 
 app_image_new:
     path: /image/new
     controller: App\Controller\ImageController::new
