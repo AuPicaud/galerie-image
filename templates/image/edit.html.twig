@@ -1,13 +1,28 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Image{% endblock %}
+{% block title %}Modifier l'image{% endblock %}
 
 {% block body %}
-    <h1>Edit Image</h1>
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Modifier l'image</h1>
 
-    {{ include('image/_form.html.twig', {'button_label': 'Update'}) }}
+        <div class="form-group">
+            {{ form_label(form.title, 'Titre') }}
+            {{ form_widget(form.title, { 'attr': {'class': 'form-control'} }) }}
+        </div>
 
-    <a href="{{ path('app_image_index') }}">back to list</a>
+        <div class="form-group">
+            {{ form_label(form.description, 'Description') }}
+            {{ form_widget(form.description, { 'attr': {'class': 'form-control'} }) }}
+        </div>
 
-    {{ include('image/_delete_form.html.twig') }}
+        <button type="submit" class="btn btn-secondary">Mettre à jour</button>
+
+        <div class="mt-3">
+            <a href="{{ path('app_image_index') }}" class="btn btn-secondary">Retour à la liste</a>
+        </div>
+
+        {{ include('image/_delete_form.html.twig') }}
+    </div>
 {% endblock %}
+

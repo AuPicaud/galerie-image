@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Image;
+use App\Form\ImageEditType;
 use App\Form\ImageType;
 use App\Repository\ImageRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -53,18 +54,24 @@ class ImageController extends AbstractController
     #[Route('/{id}/edit', name: 'app_image_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Image $image, EntityManagerInterface $entityManager): Response
     {
-        $form = $this->createForm(ImageType::class, $image);
+        // Créez un formulaire pour l'édition des champs title et description uniquement
+        $form = $this->createForm(ImageEditType::class, $image);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            // Mise à jour des champs modifiables
+            $image->setTitle($form->get('title')->getData());
+            $image->setDescription($form->get('description')->getData());
+
+            // Enregistrez les modifications
             $entityManager->flush();
 
             return $this->redirectToRoute('app_image_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('image/edit.html.twig', [
+            'form' => $form->createView(),
             'image' => $image,
-            'form' => $form,
         ]);
     }
 
