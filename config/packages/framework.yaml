@@ -25,8 +25,11 @@ when@test:
             storage_factory_id: session.storage.factory.mock_file
 
 vich_uploader:
-    db_driver: orm 
+    db_driver: orm    
+    metadata:
+        type: attribute    
     mappings:
-        your_mapping_name:
-            uri_prefix: '%app.path.uploaded_images%'
-            upload_destination: '%kernel.project_dir%/public/uploads'
+        post_image:
+            uri_prefix: /images/posts
+            upload_destination: '%kernel.project_dir%/public/images/posts'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
