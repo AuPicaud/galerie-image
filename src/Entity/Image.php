@@ -9,11 +9,9 @@ use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- * @ORM\Entity(repositoryClass=ImageRepository::class)
- * @Vich\Uploadable
- */
+
 #[ORM\Entity(repositoryClass: ImageRepository::class)]
+#[Vich\Uploadable]
 class Image
 {
     #[ORM\Id]
@@ -21,32 +19,29 @@ class Image
     #[ORM\Column]
     private ?int $id = null;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $name;
+    #[ORM\Column(type: "string", length: 255, nullable: true)]
+    #[Assert\NotBlank()]
+    private string $name;
 
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $description;
+    #[ORM\Column(type: "text", nullable: true)]
+    #[Assert\NotBlank()]
+    private string $description;
 
-    /**
-     * @Vich\UploadableField(mapping="uploads", fileNameProperty="name")
-     * @var File
-     */
-    private $imageFile;
+    #[Vich\UploadableField(mapping: "uploads", fileNameProperty: "name")]
+    #[Assert\NotNull()]
+    private ?File $imageFile;
 
-    /**
-     * @ORM\Column(type="datetime")
-     */
-    private $dateCreated;
+    #[ORM\Column(type: "datetime_immutable")]
+    #[Assert\NotNull()]
+    private \DateTimeImmutable $dateCreated;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $user;
+    #[ORM\ManyToOne(targetEntity: "App\Entity\Users")]
+    private ?\App\Entity\Users $user;
+
+    public function __construct()
+    {
+        $this->dateCreated = new \DateTimeImmutable();
+    }
 
     public function getId(): ?int
     {
@@ -58,7 +53,7 @@ class Image
         return $this->name;
     }
 
-    public function setName(string $name): self
+    public function setName(?string $name): self
     {
         $this->name = $name;
 
@@ -85,6 +80,10 @@ class Image
     public function setImageFile(?File $imageFile): self
     {
         $this->imageFile = $imageFile;
+
+        if ($imageFile){
+            $this->name = md5(uniqid()) . '.' . $imageFile->guessExtension();
+        }
 
         return $this;
     }

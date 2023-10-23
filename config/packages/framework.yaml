@@ -23,3 +23,10 @@ when@test:
         test: true
         session:
             storage_factory_id: session.storage.factory.mock_file
+
+vich_uploader:
+    db_driver: orm 
+    mappings:
+        your_mapping_name:
+            uri_prefix: '%app.path.uploaded_images%'
+            upload_destination: '%kernel.project_dir%/public/uploads'
