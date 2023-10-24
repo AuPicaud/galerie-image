@@ -13,6 +13,16 @@
 
                         {{ form_start(registrationForm) }}
                         <div class="mb-3">
+                            {{ form_label(registrationForm.firstName, 'Prénom', {'label_attr': {'class': 'form-label'}}) }}
+                            {{ form_widget(registrationForm.firstName, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+
+                        <div class="mb-3">
+                            {{ form_label(registrationForm.lastName, 'Nom', {'label_attr': {'class': 'form-label'}}) }}
+                            {{ form_widget(registrationForm.lastName, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+
+                        <div class="mb-3">
                             {{ form_label(registrationForm.email, 'Email', {'label_attr': {'class': 'form-label'}}) }}
                             {{ form_widget(registrationForm.email, {'attr': {'class': 'form-control'}}) }}
                         </div>
