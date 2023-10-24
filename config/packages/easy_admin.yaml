@@ -1,0 +1,8 @@
+easy_admin:
+    entities:
+        Image:
+            class: App\Entity\Image
+            form:
+                fields:
+                    - 'title'
+                    - 'description'
