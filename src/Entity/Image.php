@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use AllowDynamicProperties;
 use App\Repository\ImageRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
@@ -9,6 +10,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Validator\Constraints as Assert;
 
 
+#[AllowDynamicProperties]
 #[ORM\Entity(repositoryClass: ImageRepository::class)]
 #[Vich\Uploadable]
 class Image
@@ -56,7 +58,7 @@ class Image
         return $this->title;
     }
 
-    public function setTitle(?string $title): self
+    public function setTitle(string $title): self
     {
         $this->title = $title;
 
@@ -68,7 +70,7 @@ class Image
         return $this->description;
     }
 
-    public function setDescription(?string $description): self
+    public function setDescription(string $description): self
     {
         $this->description = $description;
 

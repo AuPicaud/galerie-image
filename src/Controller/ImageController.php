@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\Image;
-use App\Form\ImageEditType;
 use App\Form\ImageType;
 use App\Repository\ImageRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -13,10 +12,11 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Knp\Component\Pager\PaginatorInterface;
 
-#[Route('/image')]
+
 class ImageController extends AbstractController
 {
-    #[Route('/', name: 'app_image_index', methods: ['GET'])]
+
+    #[Route('/image/', name: 'app_image_index', methods: ['GET'])]
     public function index(Request $request, PaginatorInterface $paginator, ImageRepository $imageRepository): Response
     {
         $query = $imageRepository->createQueryBuilder('i')
@@ -34,7 +34,7 @@ class ImageController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_image_new', methods: ['GET', 'POST'])]
+    #[Route('/image/new', name: 'app_image_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $image = new Image();
@@ -54,7 +54,7 @@ class ImageController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_image_show', methods: ['GET'])]
+    #[Route('/image/{id}', name: 'app_image_show', methods: ['GET'])]
     public function show(Image $image): Response
     {
         return $this->render('image/show.html.twig', [
@@ -62,39 +62,32 @@ class ImageController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_image_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Image $image, EntityManagerInterface $entityManager): Response
+    #[Route('/image/{id}/edit', name: 'app_image_edit', methods: ['GET', 'POST'])]
+    public function edit(Request $request, Image $image): Response
     {
-        // Créez un formulaire pour l'édition des champs title et description uniquement
-        $form = $this->createForm(ImageEditType::class, $image);
+        $form = $this->createForm(ImageType::class, $image);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // Mise à jour des champs modifiables
-            $image->setTitle($form->get('title')->getData());
-            $image->setDescription($form->get('description')->getData());
+            $entityManager = $this->getDoctrine()->getManager();
 
-            // Enregistrez les modifications
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_image_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_image_show', ['id' => $image->getId()]);
         }
 
         return $this->render('image/edit.html.twig', [
-            'form' => $form->createView(),
             'image' => $image,
+            'form' => $form->createView(),
         ]);
     }
 
-    #[Route('/{id}', name: 'app_image_delete', methods: ['POST'])]
+    #[Route('/image/{id}', name: 'app_image_delete', methods: ['POST'])]
     public function delete(Request $request, Image $image, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$image->getId(), $request->request->get('_token'))) {
             $entityManager->remove($image);
             $entityManager->flush();
-            $this->addFlash('success', 'L\'image a été supprimée avec succès.');
-        } else {
-            $this->addFlash('error', 'Erreur lors de la suppression de l\'image. Veuillez réessayer.');
         }
 
         return $this->redirectToRoute('app_image_index', [], Response::HTTP_SEE_OTHER);
