@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Knp\Component\Pager\PaginatorInterface;
+use App\Controller\SecurityController;
 
 
 class ImageController extends AbstractController
@@ -35,9 +36,11 @@ class ImageController extends AbstractController
     }
 
     #[Route('/image/new', name: 'app_image_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, SecurityController $security): Response
     {
         $image = new Image();
+        $user = $security->getUser();
+        $image->setUser($user);
         $form = $this->createForm(ImageType::class, $image);
         $form->handleRequest($request);
 
